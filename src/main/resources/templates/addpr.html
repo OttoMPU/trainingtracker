@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+
+</head>
+
+<body>
+
+	<h1>Add a new PR</h1>
+
+
+	<form th:object="${pr}" th:action="@{save}" action="#" method="post">
+			<label for="weight">Weight</label>
+		<input type="text" id="weight" th:field="*{weight}" />
+			<label for="reps">Reps</label>
+		<input type="text" id="reps" th:field="*{reps}" />
+			<label for="RPE">RPE</label>
+		<input type="text" id="RPE" th:field="*{rpe}" />
+			<label for="date">Date</label>
+		<input type="text" id="date" th:field="*{date}" />
+		
+				
+		<input type="submit" class="btn btn-primary" value="Save"></input>
+	</form>
+
+</body>
+
+</html>

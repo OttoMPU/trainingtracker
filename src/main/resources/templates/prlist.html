@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+
+</head>
+
+<body>
+
+	<h1>PR List</h1>
+
+	<table>
+		<tbody>
+			<tr>
+				<th>Weight</th>
+				<th>Reps</th>
+				<th>RPE</th>
+				<th>Date</th>
+				
+			</tr>
+			
+			<tr th:each = "pr : ${prs}">
+				<td th:text = "${pr.weight}">
+				<td th:text = "${pr.reps}">
+				<td th:text = "${pr.rpe}">
+				<td th:text = "${pr.date}">
+				<td><a th:href="@{/edit/{id}(id=${pr.prid})}">Edit</a></td>
+				<td><a th:href="@{/delete/{id}(id=${pr.prid})}">Delete</a></td>
+ 	  
+			</tr>
+			
+		</tbody>
+	</table>
+
+<a href="/add">Add a pr</a>
+
+</body>
+
+</html>

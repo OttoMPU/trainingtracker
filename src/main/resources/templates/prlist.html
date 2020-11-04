@@ -14,6 +14,7 @@
 	<table>
 		<tbody>
 			<tr>
+				<th>Exercise</th>
 				<th>Weight</th>
 				<th>Reps</th>
 				<th>RPE</th>
@@ -22,6 +23,7 @@
 			</tr>
 			
 			<tr th:each = "pr : ${prs}">
+				<td th:text = "${pr.exercise.name}">
 				<td th:text = "${pr.weight}">
 				<td th:text = "${pr.reps}">
 				<td th:text = "${pr.rpe}">

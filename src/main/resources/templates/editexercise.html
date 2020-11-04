@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+	<h2>Edit exercise</h2>
+	
+	<form th:object="${exercise}" th:action="@{../saveexercise}" action="#" method="post">
+		<input type="hidden" th:field="*{exerciseid}" />
+			<label for="name">Name</label>
+		<input type="text" id="name" th:field="*{name}" />
+		
+		
+		<input type="submit" class="btn btn-primary" value="Save"></input>
+	</form>
+
+</body>
+</html>

@@ -4,9 +4,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 
 @Entity
 public class PR {
+	
+	@ManyToOne
+	@JsonIgnore
+	@JoinColumn(name="exerciseid")
+	private Exercise exercise;
+	
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long prid;
@@ -18,7 +31,7 @@ public class PR {
 		
 	}
 	
-	public PR(Long prid, int weight, int reps, int rpe, String date) {
+	public PR(Long prid, int weight, int reps, int rpe, String date, Exercise exercise) {
 		super();
 		this.prid = prid;
 		this.weight = weight;
@@ -27,12 +40,13 @@ public class PR {
 		this.date = date;
 	}
 	
-	public PR(int weight, int reps, int rpe, String date) {
+	public PR(int weight, int reps, int rpe, String date, Exercise exercise) {
 		super();
 		this.weight = weight;
 		this.reps = reps;
 		this.rpe = rpe;
 		this.date = date;
+		this.exercise = exercise;
 	}
 	
 	public Long getPrid() {
@@ -74,5 +88,14 @@ public class PR {
 	public void setDate(String date) {
 		this.date = date;
 	}
+
+	public Exercise getExercise() {
+		return exercise;
+	}
+
+	public void setExercise(Exercise exercise) {
+		this.exercise = exercise;
+	}
+	
 	
 }

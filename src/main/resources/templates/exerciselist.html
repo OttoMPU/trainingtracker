@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+
+</head>
+
+<body>
+
+	<h1>Exerciselist</h1>
+
+	<table>
+		<tbody>
+			<tr>
+				<th>Name</th>
+				
+			</tr>
+			
+			<tr th:each = "exercise : ${exercises}">
+				<td th:text = "${exercise.name}">
+				<td><a th:href="@{/editexercise/{id}(id=${exercise.exerciseid})}">Edit</a></td>
+ 	  
+			</tr>
+			
+		</tbody>
+	</table>
+
+<a href="/addexercise">Add an exercise</a>
+
+</body>
+
+</html>

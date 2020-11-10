@@ -1,6 +1,7 @@
 package hhswd20.trainingtracker.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ public class ExerciseController {
 		return "exerciselist";
 	}
 	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/addexercise")
 	public String addExercise(Model model) {
 		model.addAttribute("exercise", new Exercise());
@@ -35,6 +37,7 @@ public class ExerciseController {
 		return "redirect:exerciselist";
 	}
 	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/editexercise/{id}")
 	public String editExercise(@PathVariable("id") Long exerciseid, Model model) {
 		model.addAttribute("exercise", erepository.findById(exerciseid));

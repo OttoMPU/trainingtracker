@@ -1,6 +1,7 @@
 package hhswd20.trainingtracker.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ public class PRController {
 		return "prlist";
 	}
 	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/add")
 	public String addPR(Model model) {
 		model.addAttribute("pr", new PR());
@@ -35,12 +37,14 @@ public class PRController {
 		return "redirect:prlist";
 	}
 	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/edit/{id}")
 	public String editPR(@PathVariable("id") Long prid, Model model) {
 		model.addAttribute("pr", prrepository.findById(prid));
 		return "editpr";
 	}
 	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String deletePR(@PathVariable("id") Long prid, Model model) {
 		prrepository.deleteById(prid);

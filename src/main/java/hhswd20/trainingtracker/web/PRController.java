@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import hhswd20.trainingtracker.domain.ExerciseRepository;
 import hhswd20.trainingtracker.domain.PR;
 import hhswd20.trainingtracker.domain.PRRepository;
 
@@ -16,6 +17,9 @@ public class PRController {
 	
 	@Autowired
 	private PRRepository prrepository;
+	
+	@Autowired
+	private ExerciseRepository erepository;
 	
 	
 	@RequestMapping(value = "/prlist")
@@ -41,6 +45,7 @@ public class PRController {
 	@RequestMapping(value = "/edit/{id}")
 	public String editPR(@PathVariable("id") Long prid, Model model) {
 		model.addAttribute("pr", prrepository.findById(prid));
+		model.addAttribute("exercises", erepository.findAll());
 		return "editpr";
 	}
 	

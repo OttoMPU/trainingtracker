@@ -16,9 +16,16 @@
 		<input type="text" id="rpe" th:field="*{rpe}" />
 			<label for="date">date</label>
 		<input type="text" id="date" th:field="*{date}" />
-
+		
+		<label for="exerciselist">Exercise</label>
+		<select id="exerciselist" th:field="*{exercise}">
+			<option th:each="exercise:${exercises}"
+					th:value="${exercise.exerciseid}"
+					th:text="${exercise.name}"				
+				></option>
+		</select>
 	
-		<input type="submit" class="btn btn-primary" value="Save"></input>
+		<input type="submit" class="btn btn-primary" value="save"></input>
 	
 	</form>
 

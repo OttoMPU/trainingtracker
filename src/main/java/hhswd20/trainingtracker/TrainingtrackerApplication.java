@@ -9,6 +9,8 @@ import hhswd20.trainingtracker.domain.Exercise;
 import hhswd20.trainingtracker.domain.ExerciseRepository;
 import hhswd20.trainingtracker.domain.PR;
 import hhswd20.trainingtracker.domain.PRRepository;
+import hhswd20.trainingtracker.domain.User;
+import hhswd20.trainingtracker.domain.UserRepository;
 
 @SpringBootApplication
 public class TrainingtrackerApplication {
@@ -18,7 +20,7 @@ public class TrainingtrackerApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner demo(PRRepository prrepository, ExerciseRepository erepository) {
+	public CommandLineRunner demo(PRRepository prrepository, ExerciseRepository erepository, UserRepository urepository) {
 		return (args) -> {
 			
 			Exercise e1 = new Exercise("Squat");
@@ -31,8 +33,12 @@ public class TrainingtrackerApplication {
 			erepository.save(e3);
 			erepository.save(e4);
 			
-			prrepository.save(new PR(80, 4, 9, "03.11.2020", e3)); //flatbench
-			prrepository.save(new PR(50, 3, 7, "03.11.2020", e4)); //ohp
+			prrepository.save(new PR(80, 4, 9, "03.11.2020", e3)); 
+			prrepository.save(new PR(50, 3, 7, "03.11.2020", e4)); 
+			
+			User user = new User("Otto", "$2a$08$6/QS2BZnswh27Xgbao3njejRarlD57.CzwJnzYp5Twbtn5q.dDeg.", "ADMIN");
+			
+			urepository.save(user);
 			
 		};
 	}

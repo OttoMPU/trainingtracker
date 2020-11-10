@@ -5,9 +5,12 @@
 </head>
 <body>
 
-	<h2>Edit PR</h2>
-				
-	<label for="exerciselist">Exercise</label>
+	<h2>Edit PR</h2>		
+
+	
+	<form th:object="${pr}" th:action="@{../save}" action="#" method="post">
+
+		<label for="exerciselist">Exercise</label>
 		<select id="exerciselist" th:field="*{exercise}">
 			<option th:each="exercise:${exercises}"
 					th:value="${exercise.exerciseid}"
@@ -15,7 +18,6 @@
 				></option>
 		</select>
 	
-	<form th:object="${pr}" th:action="@{../save}" action="#" method="post">
 		<input type="hidden" th:field="*{prid}" />
 			<label for="weight">weight</label>
 		<input type="text" id="weight" th:field="*{weight}" />

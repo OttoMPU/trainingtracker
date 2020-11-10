@@ -32,6 +32,7 @@ public class PRController {
 	@RequestMapping(value = "/add")
 	public String addPR(Model model) {
 		model.addAttribute("pr", new PR());
+		model.addAttribute("exercises", erepository.findAll());
 		return "addpr";
 	}
 	

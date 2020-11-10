@@ -6,6 +6,15 @@
 <body>
 
 	<h2>Edit PR</h2>
+				
+	<label for="exerciselist">Exercise</label>
+		<select id="exerciselist" th:field="*{exercise}">
+			<option th:each="exercise:${exercises}"
+					th:value="${exercise.exerciseid}"
+					th:text="${exercise.name}"				
+				></option>
+		</select>
+	
 	<form th:object="${pr}" th:action="@{../save}" action="#" method="post">
 		<input type="hidden" th:field="*{prid}" />
 			<label for="weight">weight</label>
@@ -16,16 +25,8 @@
 		<input type="text" id="rpe" th:field="*{rpe}" />
 			<label for="date">date</label>
 		<input type="text" id="date" th:field="*{date}" />
-		
-		<label for="exerciselist">Exercise</label>
-		<select id="exerciselist" th:field="*{exercise}">
-			<option th:each="exercise:${exercises}"
-					th:value="${exercise.exerciseid}"
-					th:text="${exercise.name}"				
-				></option>
-		</select>
 	
-		<input type="submit" class="btn btn-primary" value="save"></input>
+		<input type="submit" class="btn btn-primary" value="Save"></input>
 	
 	</form>
 

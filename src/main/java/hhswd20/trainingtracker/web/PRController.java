@@ -1,17 +1,23 @@
 package hhswd20.trainingtracker.web;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import hhswd20.trainingtracker.domain.ExerciseRepository;
 import hhswd20.trainingtracker.domain.PR;
 import hhswd20.trainingtracker.domain.PRRepository;
 
+@CrossOrigin
 @Controller
 public class PRController {
 	
@@ -55,6 +61,18 @@ public class PRController {
 	public String deletePR(@PathVariable("id") Long prid, Model model) {
 		prrepository.deleteById(prid);
 		return "redirect:../prlist";
+	}
+	
+	//RESTful service to get pr by id
+	@RequestMapping(value = "/PR/{id}", method = RequestMethod.GET)
+	public @ResponseBody Optional<PR> findPRRest(@PathVariable("id")Long PRId) {
+		return prrepository.findById(PRId);
+	}
+	
+	//RESTful service for adding a new pr
+	@RequestMapping(value = "/prs", method = RequestMethod.POST)
+	public @ResponseBody PR savePRRest(@RequestBody PR pr) {
+		return prrepository.save(pr);		
 	}
 	
 }

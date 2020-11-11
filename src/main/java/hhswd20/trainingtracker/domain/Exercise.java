@@ -10,12 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Exercise {
 	
 	@JsonBackReference
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "exercise")
+	@JsonIgnore
 	private List<PR> prs;
 	
 	@Id

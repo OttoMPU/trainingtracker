@@ -31,6 +31,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 			.authorizeRequests().antMatchers("/css/**").permitAll()
 			.and()
+			.authorizeRequests().anyRequest().permitAll()
+			.and()
 		.formLogin()
 			.defaultSuccessUrl("/prlist",true)
 			.permitAll()

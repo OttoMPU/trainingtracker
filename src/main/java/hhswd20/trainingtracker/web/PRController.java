@@ -1,5 +1,6 @@
 package hhswd20.trainingtracker.web;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +74,11 @@ public class PRController {
 	@RequestMapping(value = "/prs", method = RequestMethod.POST)
 	public @ResponseBody PR savePRRest(@RequestBody PR pr) {
 		return prrepository.save(pr);		
+	}
+	
+	@RequestMapping(value = "/prs", method = RequestMethod.GET)
+	public @ResponseBody List<PR> findAllPRS() {
+		return (List<PR>) prrepository.findAll();
 	}
 	
 }

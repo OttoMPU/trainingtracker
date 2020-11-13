@@ -59,23 +59,24 @@ public class PRController {
 	
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-	public String deletePR(@PathVariable("id") Long prid, Model model) {
+	public String deletePR(@PathVariable("id") Long prid) {
 		prrepository.deleteById(prid);
 		return "redirect:../prlist";
 	}
 	
-	//RESTful service to get pr by id
+	//REST service to get pr by id
 	@RequestMapping(value = "/PR/{id}", method = RequestMethod.GET)
 	public @ResponseBody Optional<PR> findPRRest(@PathVariable("id")Long PRId) {
 		return prrepository.findById(PRId);
 	}
 	
-	//RESTful service for adding a new pr
+	//REST service for adding a new pr
 	@RequestMapping(value = "/prs", method = RequestMethod.POST)
 	public @ResponseBody PR savePRRest(@RequestBody PR pr) {
 		return prrepository.save(pr);		
 	}
 	
+	//REST service for getting all prs 
 	@RequestMapping(value = "/prs", method = RequestMethod.GET)
 	public @ResponseBody List<PR> findAllPRS() {
 		return (List<PR>) prrepository.findAll();

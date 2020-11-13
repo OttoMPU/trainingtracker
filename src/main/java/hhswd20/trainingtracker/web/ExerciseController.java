@@ -57,7 +57,7 @@ public class ExerciseController {
 	}
 	
 	
-	@RequestMapping(value = "/books", method = RequestMethod.POST)
+	@RequestMapping(value = "/addexercise", method = RequestMethod.POST)
 	public @ResponseBody Exercise saveExerciseRest(@RequestBody Exercise exercise) {
 		return erepository.save(exercise);		
 	}

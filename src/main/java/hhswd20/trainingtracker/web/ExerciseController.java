@@ -1,5 +1,6 @@
 package hhswd20.trainingtracker.web;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,13 @@ public class ExerciseController {
 		return "editexercise";
 	}
 	
-	//RESTful services
+	//Fetch all exercises
+	@RequestMapping(value = "/exercises", method = RequestMethod.GET)
+	public @ResponseBody List<Exercise> findAllExercises() {
+		return (List<Exercise>) erepository.findAll();
+	}
+	
+	//Fetch by id 
 	@RequestMapping(value = "/exercise/{id}", method = RequestMethod.GET)
 	public @ResponseBody Optional<Exercise> findExerciseRest(@PathVariable("id")Long exerciseid) {
 		return erepository.findById(exerciseid);

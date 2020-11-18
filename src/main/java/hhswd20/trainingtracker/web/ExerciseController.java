@@ -68,10 +68,5 @@ public class ExerciseController {
 		return erepository.save(exercise);	
 	}
 	
-	//REST service for updating exercise 
-	@RequestMapping(value = "/exercise/{id}", method = RequestMethod.PUT)
-	public @ResponseBody Model updateExercise(@PathVariable("id") Long exerciseid, Model model) {
-		return model.addAttribute("exercise", erepository.findById(exerciseid));
-	}
 	
 }

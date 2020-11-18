@@ -9,6 +9,16 @@
 
 <body>
 
+<h3 th:inline="text" sec:authorize="hasAuthority('ADMIN')">Hello [[${#httpServletRequest.remoteUser}]]!</h3>
+
+	<form action="/login" sec:authorize="isAnonymous()">
+		<input type="submit" value="Sign in"/>
+	</form>
+	
+	<form th:action="@{logout}" method="post" sec:authorize="hasAuthority('ADMIN')">
+		<input type="submit" value="Sign out" />
+	</form>
+	
 	<h1>PR List</h1>
 
 	<table>
@@ -22,7 +32,7 @@
 				
 			</tr>
 			
-			<tr th:each = "pr : ${prs}">
+			<tr th:each = "pr : ${prs}" style="text-align:center;">
 				<td th:text = "${pr.exercise.name}">
 				<td th:text = "${pr.weight}">
 				<td th:text = "${pr.reps}">
@@ -36,7 +46,7 @@
 		</tbody>
 	</table>
 
-<a href="/add">Add a pr</a>
+<a href="/add" sec:authorize="hasAuthority('ADMIN')">Add a pr</a>
 
 </body>
 

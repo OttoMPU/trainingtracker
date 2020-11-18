@@ -45,6 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests().anyRequest().permitAll()
 			.and()
 		.formLogin()
+			.loginPage("/login")
 			.defaultSuccessUrl("/prlist",true)
 			.permitAll()
 			.and()

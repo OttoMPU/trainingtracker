@@ -28,6 +28,10 @@ public class PRController {
 	@Autowired
 	private ExerciseRepository erepository;
 	
+	@RequestMapping(value="/login")
+	public String login() {
+	return "login";
+	}
 	
 	@RequestMapping(value = "/prlist")
 	public String prList(Model model) {
@@ -80,12 +84,6 @@ public class PRController {
 	@RequestMapping(value = "/prs", method = RequestMethod.GET)
 	public @ResponseBody List<PR> findAllPRS() {
 		return (List<PR>) prrepository.findAll();
-	}
-	
-	//REST service for updating pr 
-	@RequestMapping(value = "/PR/{id}", method = RequestMethod.PUT)
-	public @ResponseBody PR updatePR(@RequestBody PR pr) {
-		return prrepository.save(pr);
 	}
 	
 }

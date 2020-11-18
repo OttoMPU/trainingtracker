@@ -11,24 +11,28 @@ import Select from 'react-select';
 export default function Addpr(props) {
  
     const [open, setOpen] = useState(false);
-    const [pr, setPr] = useState({exercise: '', weight: '', reps: '', rpe: '', date: '' });
+    const [pr, setPr] = useState({exercise: [], weight: '', reps: '', rpe: '', date: '' }); // exercise is an object selected from dropdown
     const [exerciselist, setExerciselist] = useState([]);
-    const [exercise, setExercise] = useState('');
+    const [exercise, setExercise] = useState([]);
 
+    //Called when opening window
     const handleClickOpen = () => {
         setOpen(true);
         getExercises();
     }
     
+    //Called when saving new entry
     const handleClose = () => {
         props.addPr(pr);
         setOpen(false);
     }
 
+    //Called when cancelling operation
     const handleCancel = () => {
         setOpen(false);
     }
 
+    //Reads input data
     const inputChanged = (event) => {
         setPr({...pr, [event.target.name]: event.target.value});
     }
@@ -39,9 +43,9 @@ export default function Addpr(props) {
 
       //Fetch function for exercise select
       const getExercises = () => {
-        fetch('https://op-trainingtrackerb.herokuapp.com/exercises')
+        fetch('https://op-trainingtrackerb.herokuapp.com/api/exercises')
         .then(response => response.json())
-        .then(data => setExerciselist(data))
+        .then(data => setExerciselist(data._embedded.exercises))
         .catch(err => console.error(err))
     }
 
@@ -51,8 +55,8 @@ export default function Addpr(props) {
   }
 
     //Select menu items
-    const options = exerciselist.map((exercise) => 
-            [ {value: exercise.exerciseid, label: exercise.name} ]
+    const options = exerciselist.map((item) => 
+            [ {value: item.name, label: item.name} ]
           )
 
     return(
@@ -65,9 +69,10 @@ export default function Addpr(props) {
         <DialogContent>
         
         <Select 
+         value={pr.exercise}
          style={selectstyle}
          options={options}
-         onChange={handleChange}
+         onChange={inputChanged}
         />      
 
         <TextField

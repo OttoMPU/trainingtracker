@@ -28,6 +28,15 @@ export default function Prlist(){
         .catch(err => console.error(err))
     }
 
+    //Exercise name fetch
+    const getExercise = (link) => {
+            fetch(link)
+            .then(response => response.json())
+            .then(data => setExercise(data.name))
+            .catch(err => console.error(err))
+            console.log(exercise)
+        }
+
     //PR delete function
     const deletePR = (link) =>{
         if (window.confirm('Are you sure?')) {
@@ -85,12 +94,13 @@ export default function Prlist(){
     //Table columns
     const prcolumns = [
         {
-         Header: 'Exercise',
-         accessor: 'Exercise'
+            Header: 'Exercise',
+         //   Cell: row => (getExercise(row.original._links.exercise.href), exercise),   //erillinen komponentti? fetch luo rekursion, tarvitsee erillisen
+            accessor: 'exercise'
         },
         {
-         Header: 'Weight',
-         accessor: 'weight'
+            Header: 'Weight',
+            accessor: 'weight'
         },
         {
             Header: 'Reps',

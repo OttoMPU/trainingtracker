@@ -82,4 +82,10 @@ public class PRController {
 		return (List<PR>) prrepository.findAll();
 	}
 	
+	//REST service for updating pr 
+	@RequestMapping(value = "/PR/{id}", method = RequestMethod.PUT)
+	public @ResponseBody PR updatePR(@RequestBody PR pr) {
+		return prrepository.save(pr);
+	}
+	
 }

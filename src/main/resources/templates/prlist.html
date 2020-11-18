@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 
@@ -28,8 +28,8 @@
 				<td th:text = "${pr.reps}">
 				<td th:text = "${pr.rpe}">
 				<td th:text = "${pr.date}">
-				<td><a th:href="@{/edit/{id}(id=${pr.prid})}">Edit</a></td>
-				<td><a th:href="@{/delete/{id}(id=${pr.prid})}">Delete</a></td>
+				<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/edit/{id}(id=${pr.prid})}">Edit</a></td>
+				<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${pr.prid})}">Delete</a></td>
  	  
 			</tr>
 			

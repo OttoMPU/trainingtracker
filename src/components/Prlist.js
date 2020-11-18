@@ -10,8 +10,10 @@ import Updatepr from './Updatepr';
 export default function Prlist(){
 
     const [prs, setPrs] = useState([]);
+    const [prlist, setPrlist] = useState([]);
     const [open, setOpen] = useState(false);
     const [msg, setMsg] = useState('');
+    const [exercise, setExercise] = useState('');
 
     //Loads table data when page is opened
     useEffect(() => {
@@ -20,9 +22,9 @@ export default function Prlist(){
 
     //Table data fetch
     const getPrs = () => {
-        fetch('https://op-trainingtrackerb.herokuapp.com/prs')
+        fetch('https://op-trainingtrackerb.herokuapp.com/api/pRs')
         .then(response => response.json())
-        .then(data => setPrs(data))
+        .then(data => setPrs(data._embedded.pRs))
         .catch(err => console.error(err))
     }
 
@@ -61,7 +63,7 @@ export default function Prlist(){
     //Edit existing list object
     const editPr = (link, pr) => {
         fetch(link,{
-            method: 'PUT',
+            method: 'PATCH',
             headers: {
                 'Content-Type':'application/json'
             },
@@ -84,7 +86,7 @@ export default function Prlist(){
     const prcolumns = [
         {
          Header: 'Exercise',
-         accessor: 'exercise.name'
+         accessor: 'Exercise'
         },
         {
          Header: 'Weight',
@@ -106,7 +108,7 @@ export default function Prlist(){
             Cell: row => (<Updatepr pr={row.original} editPr={editPr} />)
         },
         {
-            Cell: row => (<Button onClick={() => deletePR('https://op-trainingtrackerb.herokuapp.com/api/pRs/' + row.original.prid )} > Delete </Button> )
+            Cell: row => (<Button onClick={() => deletePR(row.original._links.pR.href )} > Delete </Button> )
         }
     ]
 

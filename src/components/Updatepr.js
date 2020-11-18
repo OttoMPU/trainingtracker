@@ -10,24 +10,25 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 export default function Updatepr(props) {
 
     const [open, setOpen] = useState(false);
-    const [pr, setPr] = useState({exercise: '', weight: '', reps: '', rpe: '', date: '' });
+    const [pr, setPr] = useState({weight: '', reps: '', rpe: '', date: '' });
+    const [exercise, setExercise] = useState('');
 
 
     //Called when opening the editing window, loads list object 
     const handleClickOpen = () => {
-        setPr({ 
-            exercise: props.pr.exercise,
+        setPr({
             weight: props.pr.weight,
             reps: props.pr.reps, 
             rpe: props.pr.rpe,
             date: props.pr.date
             });
-            setOpen(true);
+        getExercise();
+        setOpen(true);
     }
 
     //Called when saving changes
     const handleClose = () => {
-        props.editPr('https://op-trainingtrackerb.herokuapp.com/pr/' + props.pr.prid, pr);
+        props.editPr(props.pr._links.pR.href , pr);
         setOpen(false);
     }
 
@@ -40,6 +41,14 @@ export default function Updatepr(props) {
     const inputChanged = (event) => {
         setPr({...pr, [event.target.name]: event.target.value});
     }
+
+    //Fetch function for exercise
+    const getExercise = () => {
+            fetch(props.pr._links.exercise.href)
+            .then(response => response.json())
+            .then(data => setExercise(data.name))
+            .catch(err => console.error(err))
+        }
 
     const titlestyle = {
         marginLeft: '4%',    
@@ -54,7 +63,7 @@ export default function Updatepr(props) {
                 <DialogTitle id="form-dialog-title">Edit PR</DialogTitle>
 
                 <a style={titlestyle}>
-                    {pr.exercise.name}
+                    {exercise}
                 </a>
 
                 <DialogContent>

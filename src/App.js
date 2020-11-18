@@ -162,7 +162,7 @@ const useStyles = makeStyles(theme => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
 
-    marginLeft: -drawerWidth,
+   marginLeft: -drawerWidth,
 
   },
   contentShift: {

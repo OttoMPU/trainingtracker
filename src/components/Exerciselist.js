@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import ReactTable from 'react-table-v6';
 import 'react-table-v6/react-table.css';
-import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
+import Updateexercise from './Updateexercise'
+import Addexercise from './Addexercise'
 
 export default function Exerciselist(){
 
@@ -21,6 +22,42 @@ export default function Exerciselist(){
         .catch(err => console.error(err))
     }
 
+    //Edit existing list object
+    const editExercise = (link, exercise) => {
+        fetch(link,{
+            method: 'PATCH',
+            headers: {
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify(exercise)
+        })
+        .then(_ => getExercises())
+        .then(_ => {
+            setMsg('Exercise updated');
+            setOpen(true);
+        })
+        .catch(err => console.error(err))
+    }
+
+        //Adding a new list object
+        const addExercise = (exercise) => {
+            fetch('https://op-trainingtrackerb.herokuapp.com/api/exercises',
+                {
+                    method: 'POST', 
+                    headers: {
+                        'Content-Type':'application/json'
+                    },
+                    body: JSON.stringify(exercise)
+                }
+            )
+            .then(_ => getExercises())
+            .then(_ => {
+                setMsg('New exercise added!');
+                setOpen(true);
+            })
+            .catch(err => console.error(err))
+        }
+
     //Close message box
     const handleClose = () => {
         setOpen(false);
@@ -30,6 +67,9 @@ export default function Exerciselist(){
         {
             Header: 'Exercise',
             accessor: 'name'
+        },
+        {
+            Cell: row => (<Updateexercise exercise={row.original} editExercise={editExercise} />)
         }
     ]
 
@@ -53,6 +93,7 @@ export default function Exerciselist(){
             horizontal: 'left'
             }}
         /> 
+        <Addexercise addExercise={addExercise} />
 
     </div>
 

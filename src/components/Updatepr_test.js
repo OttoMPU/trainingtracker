@@ -5,29 +5,46 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 
 export default function Updatepr(props) {
 
     const [open, setOpen] = useState(false);
-    const [pr, setPr] = useState({exercise: '', weight: '', reps: '', rpe: '', date: '' });
+    const [pr, setPr] = useState({weight: '', reps: '', rpe: '', date: '' });
+    const [exerciselist, setExerciselist] = useState([]);
 
 
     //Called when opening the editing window, loads list object 
     const handleClickOpen = () => {
         setPr({ 
-            exercise: props.pr.exercise,
             weight: props.pr.weight,
             reps: props.pr.reps, 
             rpe: props.pr.rpe,
             date: props.pr.date
             });
             setOpen(true);
+            getExercises();
     }
+
+    //Fetch function for exercise dropdown data
+    const getExercises = () => {
+        fetch('https://op-trainingtrackerb.herokuapp.com/exercises')
+        .then(response => response.json)
+        .then(responseData => {
+            setExerciselist(responseData._embedded.exercises)
+        })
+        .catch(err => console.error(err))
+    }
+
+    //Dropdown menu item list 
+    const dropdownitems = exerciselist.map((exercise) => 
+      <tr key={exercise.exerciseid}>  <Dropdown.Item > {exercise.name} </Dropdown.Item> </tr>
+    )
 
     //Called when saving changes
     const handleClose = () => {
-        props.editPr('https://op-trainingtrackerb.herokuapp.com/pr/' + props.pr.prid, pr);
+        props.editPr('https://op-trainingtrackerb.herokuapp.com/prs', pr);
         setOpen(false);
     }
 
@@ -41,9 +58,9 @@ export default function Updatepr(props) {
         setPr({...pr, [event.target.name]: event.target.value});
     }
 
-    const titlestyle = {
-        marginLeft: '4%',    
-    } 
+    const dropdownstyle = {
+        marginLeft: "5%"
+    }
 
     return(
         <div>
@@ -52,11 +69,14 @@ export default function Updatepr(props) {
         </Button>
             <Dialog open={open} disableBackdropClick={true} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Edit PR</DialogTitle>
-
-                <a style={titlestyle}>
-                    {pr.exercise.name}
-                </a>
-
+                <Dropdown style={dropdownstyle}>
+                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                    Exercises
+                    </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            {dropdownitems}
+                        </Dropdown.Menu>
+                </Dropdown>
                 <DialogContent>
                     <TextField
                         margin="dense"
